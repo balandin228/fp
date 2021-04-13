@@ -16,21 +16,16 @@ namespace TagCloud
             {
                 Image = image,
                 Location = new Point(0, 0),
-                Size = ClientSize
+                Size = ClientSize,
             };
+            
             Controls.Add(pictureBox);
         }
 
-        private void InitializeComponent()
+        protected override void OnPaint(PaintEventArgs e)
         {
-            this.SuspendLayout();
-            // 
-            // ShowImageForm
-            // 
-            this.ClientSize = new System.Drawing.Size(282, 253);
-            this.Name = "ShowImageForm";
-            this.Load += new System.EventHandler(this.ShowImageForm_Load_1);
-            this.ResumeLayout(false);
+            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            base.OnPaint(e);
         }
 
         protected override void OnClosing(CancelEventArgs e)

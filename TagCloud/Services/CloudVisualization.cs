@@ -1,7 +1,8 @@
-﻿using System;
+﻿using ResultOf;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
-using ResultOf;
+using System.Drawing.Drawing2D;
 using TagCloud.IServices;
 using TagCloud.Models;
 
@@ -40,12 +41,13 @@ namespace TagCloud
                 var rectangles = RectanglesCustomizer.GetRectanglesWithPalette(palette, tagRectanglesResult.Value);
                 foreach (var rectangle in rectangles)
                 {
-                    graphics.DrawString(rectangle.Tag.Text, rectangle.Tag.Font, new SolidBrush(rectangle.Color),
-                        rectangle.Area.Location);
+                    graphics.SmoothingMode = SmoothingMode.HighQuality  ; 
+                    GraphicsPath gPath = new GraphicsPath();
+                    gPath.AddString(rectangle.Tag.Text,rectangle.Tag.Font.FontFamily,(int)rectangle.Tag.Font.Style, rectangle.Tag.Font.Size, rectangle.Area.Location, StringFormat.GenericDefault);
+                    graphics.FillPath(new SolidBrush(rectangle.Color), gPath);
                     rectangle.Tag.Font.Dispose();
                 }
             }
-
             return image;
         }
 
